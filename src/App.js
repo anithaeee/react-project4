@@ -1,25 +1,21 @@
-import React from 'react';
-import './App.css';
-import {useState,useEffect} from 'react';
-import Props from './Props';
-function App() {
-  const [value,setvalue] = useState(0);
-  let [val1, setval1] = useState(0);
-  const [counterval, setcounterval] = useState(0);
-  useEffect(()=>{
-   console.log(value, "value");
-   Updateval();
-  },[value])
-  const Updateval = () =>{
-    setcounterval(counterval+1);
-  }
-  return (
-    <div className="App">
-      <Props count={counterval}/>
-      <button onClick={()=>{setvalue(value+1)}}>Add</button>
-      <button onClick={()=>{setval1(val1+1)}}>Add</button>
-    </div>
-  );
-}
+import {people} from './Data.js';
+import {getImageUrl} from './Util.js'
 
-export default App;
+export default function list() {
+  const chemist = people.filter(person =>
+  person.profession === 'chemist'
+  );
+  const listItems = chemist.map(person =>
+  <li>
+    <img src= {getImageUrl(person)}
+    alt={people.name}
+    />
+    <p>
+      <b>{person.name}:</b>
+      {'' +person.profession + ''}
+      know for {person.accomplishment}
+    </p>
+  </li>
+  );
+  return <ul>{listItems}</ul>
+}
